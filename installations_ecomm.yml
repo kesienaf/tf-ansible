@@ -26,7 +26,7 @@
    
   - name: Host Code
     git:
-      repo: https://github.com/CeeyIT-Solutions/ecomm-3.git
+      repo: https://github.com/kesienaf/tf-ansible.git
       dest: /var/www/html
       force: yes
 ...

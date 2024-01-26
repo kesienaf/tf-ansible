@@ -32,7 +32,7 @@
       git:
         repo: https://github.com/CeeyIT-Solutions/ecomm-3.git
         dest: /var/www/html
-      become: yes
-      force: yes
+        become: yes
+        force: yes
       when: ansible_distribution == 'Ubuntu'
 ...

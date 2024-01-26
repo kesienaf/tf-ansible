@@ -1,32 +1,38 @@
 ---
-- name: Install HTTP server & Deploy Ecomm App
+- name: Install Apache and Clone Ecomm Repo
   hosts: n1
   become: yes
 
   tasks:
-  - name: Install HTTP
-    yum:
-      name: httpd
-      state: present
-   
-  - name: Start HTTPD
-    service:
-      name: httpd
-      state: started
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+      when: ansible_distribution == 'Ubuntu'
 
-  - name: Enable HTTPD
-    service:
-      name: httpd
-      enabled: yes
+    - name: Start Apache
+      service:
+        name: apache2
+        state: started
+      when: ansible_distribution == 'Ubuntu'
 
-  - name: Install Git
-    yum:
-      name: git
-      state: present
+    - name: Enable Apache
+      service:
+        name: apache2
+        enabled: yes
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+      when: ansible_distribution == 'Ubuntu'
    
-  - name: Host Code
-    git:
-      repo: https://github.com/CeeyIT-Solutions/ecomm-3.git
-      dest: /var/www/html
+    - name: Clone Ecomm Repo
+      git:
+        repo: https://github.com/CeeyIT-Solutions/ecomm-3.git
+        dest: /var/www/html
+      become: yes
       force: yes
+      when: ansible_distribution == 'Ubuntu'
 ...
